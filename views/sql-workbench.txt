@@ -1,0 +1,43 @@
+USE CourierDB;
+
+create table customer(
+	cust_id int(10),
+    cust_password varchar(30) NOT NULL,
+    cust_name varchar(30) NOT NULL,
+    cust_mobile int(10) NOT NULL,
+    cust_address varchar(200),
+    PRIMARY KEY(cust_id)
+    );
+
+ALTER TABLE customer 
+MODIFY COLUMN cust_id int(10) AUTO_INCREMENT;
+
+desc customer;
+
+CREATE TABLE package(
+	package_id INT auto_increment,
+    cust_id INT NOT NULL,
+    package_origin varchar(200) NOT NULL,
+    package_destination varchar(200) NOT NULL,
+    package_weight int NOT NULL,
+    PRIMARY KEY(package_id),
+    FOREIGN KEY(cust_id) 
+		references customer(cust_id)
+        ON DELETE CASCADE
+    );
+
+desc package;
+
+CREATE TABLE payment(
+	payment_id INT NOT NULL,
+    package_id INT NOT NULL,
+    package_value INT NOT NULL,
+    PRIMARY KEY(payment_id),
+    FOREIGN KEY(package_id)
+		REFERENCES package(package_id)
+        ON DELETE CASCADE
+    );
+
+desc payment;
+
+
