@@ -49,7 +49,8 @@ app.post('/post', urlencodedParser ,function(req, res){
             if(!err){
                 var string = JSON.stringify(results);
                 var json = JSON.parse(string);
-                store.set('currentuser',json[0].cust_id)
+                store.set('currentid',json[0].cust_id);
+                store.set('currentuser', json[0].cust_name);
                 console.log(store.data);
                 mysqlConnection.query("SELECT * FROM package WHERE cust_id = ?",[json[0].cust_id],function(err, result){
                                 var string1 = JSON.stringify(result);
@@ -79,12 +80,14 @@ app.post('/post', urlencodedParser ,function(req, res){
 })
 
 app.get('/services', function(req, res){
-    mysqlConnection.query("SELECT * FROM package WHERE cust_id = ?",[store.get('currentuser')], function(err,results){
+    var currentid = store.get('currentid');
+    var currentuser = store.get('currentuser');
+    mysqlConnection.query("SELECT * FROM package WHERE cust_id = ?",[currentid], function(err,results){
         if(!err){
             var string = JSON.stringify(results);
             var json = JSON.parse(string);
 
-            res.render('services', {data:json})
+            res.render('services', {data:json, currentuser:currentuser})
         }
         else{
             console.log(err);
@@ -113,17 +116,17 @@ app.get('/services', function(req, res){
 app.get('/contact', function(req, res){
     res.render('contact');
 });
-app.get('/admin', function (req, res) {
-    res.render('admin');
-});
+
 app.get('/tracking', function (req, res) {
-    mysqlConnection.query("SELECT * FROM package WHERE cust_id = ?",[id],function(err, result){
+    var currentid = store.get('currentid');
+    var currentuser = store.get('currentuser');
+    mysqlConnection.query("SELECT * FROM package WHERE cust_id = ?",[currentid],function(err, result){
                 if (!err) {
                     var string = JSON.stringify(result);
                     var json = JSON.parse(string);
                     console.log(json);
 
-                    res.render("tracking", {
+                    return res.render("tracking", {
                         data: json
                     });
 
@@ -135,7 +138,16 @@ app.get('/tracking', function (req, res) {
 
 
 app.get('/admin', function(req,res){
-    mysqlConnection.query()
+    mysqlConnection.query('SELECT * FROM package', function(err, result){
+        if(!err){
+            var string = JSON.stringify(result);
+            var json = JSON.parse(string);
+            return res.render("admin", {data: json});
+        }
+        else{
+            console.log(err);
+        }
+    });
 });
 
 

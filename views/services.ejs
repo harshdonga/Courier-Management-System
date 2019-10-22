@@ -19,6 +19,7 @@
     <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/loginpage.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
 
     <!--  browser campatibel css files-->
     <!--[if lt IE 9]>
@@ -27,8 +28,23 @@
     <![endif]-->
 </head>
 
-<body class="js">
+<body class="js" onload="loader()">
     <script>
+         $(document).ready(function() {
+         var x = $("#currentuser").html();
+         alert("Hello " + x);
+         });
+        function loader(){
+            Push.create("Hello user!", {
+                body: "",
+                icon: "/icon.png",
+                timeout: 5000,
+                onClick: function() {
+                    console.log(this);
+            }
+        });
+    }
+
         function package(){
             var weight = $('#weight').val()
             var origin = $('#origin').val()
@@ -58,6 +74,7 @@
     </script>
 
     <div id="preloader"></div>
+    <h2 style="display:none;" id="currentuser"><%= currentuser %></h2>
 
     <section class="about-us">
         <div class="logo_menu" id="sticker">
@@ -168,7 +185,7 @@
 
     </section>
 
-    <section class="footer-area" id="contact">
+    <!-- <section class="footer-area" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-sm-3 col-xs-12 col-lg-4">
@@ -219,7 +236,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>

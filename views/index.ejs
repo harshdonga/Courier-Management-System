@@ -19,7 +19,7 @@
     <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/loginpage.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
     <!--  browser campatibel css files-->
     <!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,9 +27,29 @@
     <![endif]-->
 </head>
 
-<body class="js">
+<body class="js" onload="loader()">
     <script>
+        function loader(){
+        Push.create("Hello Guest", {
+            body: "Please Login to continue!",
+            icon: "/icon.png",
+            timeout: 5000,
+            onClick: function() {
+                console.log(this);
+            }
+        });
 
+        // setTimeout(() => {
+        //     Push.create("Hello User", {
+        //     body: "",
+        //     icon: "/icon.png",
+        //     timeout: 5000,
+        //     onClick: function() {
+        //     console.log(this);
+        //     }
+        //     });
+        // }, 5000);
+    }
         var link = document.getElementById('getNumber');
         link.onclick = getNumber;
 
@@ -64,6 +84,14 @@
                     }
                 }
             })
+                    Push.create("Please Head To Login Tab", {
+                        body: "",
+                        icon: "/icon.png",
+                        timeout: 5000,
+                    onClick: function() {
+                    console.log(this);
+                    }
+                    });
         }
 
         function signup() {
