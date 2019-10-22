@@ -28,6 +28,8 @@
 </head>
 
 <body class="js">
+    <script>
+    </script>
 
     <section class="about-us">
         <div class="logo_menu" id="sticker">
@@ -78,25 +80,31 @@
                     </div>
                 </div>
             </div>
+            <form method="POST" action="/verify">
             <div class="row">
                 <% data.forEach(function(e1, i){ %>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="about_single_item">
                         <div class="about_single_item_content">
-                            <% if(e1.is_paid === 0) { %>}
-                            <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
+                            <% if(e1.is_verified == 0) { %>}
+                            <input type="checkbox" id=<%= e1.package_id%> name=<%= e1.package_id%>>
+                                <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
                                 <%=e1.package_destination%></h4>
                             <p>Package Weight : <%= e1.package_weight %></p>
                             <% }%>
+
                         </div>
                     </div>
                 </div>
                 <% }); %>
             </div>
+            <input type="submit">
+            </form>
         </div>
 
 
     </section>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">

@@ -96,6 +96,37 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="row page-title">
+                <div class="col-md-5 col-sm-6">
+                    <div class="pricing-desc section-padding-two">
+                        <div class="pricing-desc-title">
+                            <div class="title">
+                                <h2>Packages Unverified!</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <% data.forEach(function(e1, i){ %>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="about_single_item">
+                        <div class="about_single_item_content">
+                            <% if(e1.is_verified === 0) { %>}
+                            <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
+                                <%=e1.package_destination%></h4>
+                            <p>Package Weight : <%= e1.package_weight %></p>
+                            <% }%>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+
+
+
             <div class="row page-title">
                 <div class="col-md-5 col-sm-6">
                     <div class="pricing-desc section-padding-two">
@@ -109,17 +140,19 @@
             </div>
             <div class="row">
                 <% data.forEach(function(e1, i){ %>
+                    <% data1.forEach(function(e2, i2){ %>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="about_single_item">
                         <div class="about_single_item_content">
-                            <% if(e1.is_paid === 0) { %>}
+                            <% if(e1.is_paid === 0 && e1.is_verified!=0 && e1.package_id == e2.package_id) { %>}
                             <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
-                                <%=e1.package_destination%></h4>
+                                <%=e1.package_destination%> <br> Cost : <%= e2.package_value %></h4>
                             <p>Package Weight : <%= e1.package_weight %></p>
                             <% }%>
                         </div>
                     </div>
                 </div>
+                <% }); %>
                 <% }); %>
             </div>
 
@@ -146,7 +179,7 @@
                         <div class="about_single_item_content">
                             <% if(e1.is_paid != 0) { %>
                             <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
-                                <%=e1.package_destination%></h4>
+                                <%=e1.package_destination%> <br> Arriving Soon!</h4>
                             <p>Package Weight : <%= e1.package_weight %></p>
                             <% } %>
                         </div>

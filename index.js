@@ -97,21 +97,23 @@ app.get('/services', function(req, res){
 
 });
 
-// app.post('/services', urlencodedParser, function(req, res){
-//     var package_origin = req.body.origin;
-//     var package_destination = req.body.destination;
-//     var package_weight = req.body.weight;
-//     console.log(req.body)
-//     mysqlConnection.query("INSERT INTO package(cust_id, package_origin, package_destination, package_weight) values(?,?,?,?)", [id,package_origin, package_destination, package_weight],function(err, results){
-//         if(!err){
-//         console.log(results);
-//         res.json({
-//             data: results
-//         })}
-//         else
-//         console.log(err)
-//     });
-// });
+app.post('/services', urlencodedParser, function(req, res){
+    var package_origin = req.body.origin;
+    var package_destination = req.body.destination;
+    var package_weight = req.body.weight;
+    var currentid = store.get('currentid');
+    var currentuser = store.get('currentuser');
+    console.log(req.body)
+    mysqlConnection.query("INSERT INTO package(cust_id, package_origin, package_destination, package_weight) values(?,?,?,?)", [currentid,package_origin, package_destination, package_weight],function(err, results){
+        if(!err){
+        console.log(results);
+        res.json({
+            data: results
+        })}
+        else
+        console.log(err)
+    });
+});
 
 app.get('/contact', function(req, res){
     res.render('contact');
@@ -124,10 +126,21 @@ app.get('/tracking', function (req, res) {
                 if (!err) {
                     var string = JSON.stringify(result);
                     var json = JSON.parse(string);
-                    console.log(json);
-
-                    return res.render("tracking", {
-                        data: json
+                    mysqlConnection.query("SELECT * FROM payment",function(err, rest){
+                        if(!err){
+                            var string1 = JSON.stringify(rest);
+                            var json1 = JSON.parse(string1);
+                            console.log(json1);
+                        }
+                        else{
+                            console.log(err);
+                        }
+                        return res.render("tracking", {
+                            data: json,
+                            currentid: currentid,
+                            currentuser: currentuser,
+                            data1:json1
+                    });
                     });
 
                 } else {
@@ -148,6 +161,25 @@ app.get('/admin', function(req,res){
             console.log(err);
         }
     });
+});
+
+app.post('/verify', urlencodedParser, function(req, res){
+    var r = [100, 150, 175, 200, 250, 300, 325, 350, 450];
+    var ra = r[Math.floor(Math.random() * r.length)];
+    var selected = req.body;
+    var keys = Object.keys(selected);
+    for(var i=0; i<keys.length; i++){
+        mysqlConnection.query('UPDATE package SET is_verified= ? WHERE package_id=?',[1, keys[i]],function(err, result){
+            if(err)
+            console.log(err);
+        });
+        mysqlConnection.query('INSERT INTO payment values(?,?,?)', [keys[i], keys[i], ra], function(err, results){
+            if(!err)
+            console.log(results);
+            else
+            console.log(err);
+        })
+    }res.send('payment');
 });
 
 
