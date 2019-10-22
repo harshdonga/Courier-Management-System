@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Courier Mgmt. MiniProject</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/fonts/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/slick.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/jquery.mb.YTPlayer.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/meanmenu.css" type="text/css">
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/loginpage.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!--  browser campatibel css files-->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="js">
+    <style>
+        .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 40%;
+        height:100%;
+        }
+
+        /* On mouse-over, add a deeper shadow */
+        .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        /* Add some padding inside the card container */
+        .container {
+        padding: 2px 16px;
+        height: auto;
+            position:relative;
+            right:350px;
+        }
+    </style>
+    <script>
+        function track(e) {
+            alert(e)
+            var package_id = $('#pid').val()
+            var track = {
+                package_id: package_id
+            }
+            alert(3)
+
+            $.ajax({
+                url: "/post",
+                type: 'POST',
+                data: JSON.stringify(track),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (res) {
+                    if (!!res) {
+                        console.log(res);
+                        location.href('/harsh')
+                    } else {
+                        alert(res.message)
+                    }
+                }
+            })
+        }
+    </script>
+    <div id="preloader"></div>
+    <section class="third header_area" id="home">
+        <div class="bgslider">
+            <div class="active-bg-slider">
+                <div class="singlebgslider">
+                    <img src="img/bgslider.jpg" alt="">
+                </div>
+                <div class="singlebgslider">
+                    <img src="img/headerbg.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="logo_menu" id="sticker">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
+                        <div class="logo">
+                            <a href="/"><img src="img/logo.png" alt="logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
+                        <nav class="navbar">
+
+                            <ul class="nav navbar-nav navbar-right menu">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/about">about</a></li>
+                                <li class="current-menu-item"><a href="/tracking">Tracking</a></li>
+                                <li><a href="/services">services</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table zindex">
+            <div class="cell">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <div class="welcome_text wow slideInLeft">
+                                <h1>Get the fastest service </h1>
+                                <h1>for your product</h1>
+                                <div class="welcome_p">
+                                    <p>Country's Fastest and most reliable shippers and deliverers</p>
+                                    <p>are now live and open to you!</p>
+                                </div>
+                                <div class="welcome_form">
+
+
+                                    <% if(data!= '') { %>
+
+                                    <% data.forEach(function(e, i){ %>
+                                        <div class = "card">
+                                            <div class="container">
+                                                <p> <%= e.package_id %><br><%= e.origin %> <%= e.is_verified%> </p>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+
+
+
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>)
+    <div class="copyright-area">
+        <div class="container">
+            <div class="col-xs-12 col-sm-6 col-md-6 text-left">
+            </div>
+            <div class="col-xs-12  col-sm-6 col-md-6 text-right">
+                <div class="footer-text">
+                    <a href="https://facebook.com" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com" class="fa fa-twitter"></a>
+                    <a href="https://linkedin.com" class="fa fa-linkedin"></a>
+                    <a href="https://google.com" class="fa fa-google-plus"></a>
+                    <a href="https://dribble.com" class="fa fa-dribbble"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+    </script>
+    <script src="/assets/js/jquery.sticky.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.mb.YTPlayer.min.js"></script>
+    <script src="/assets/js/jquery.meanmenu.js"></script>
+    <script src="/assets/js/slick.min.js"></script>
+    <script src="/assets/js/jquery.nav.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/loginpage.js"></script>
+    <!-- <script>
+        $('#harsh').click(function (req, res) {
+            $.ajax({
+                url: "/tracking",
+                type: 'GET',
+                data: JSON.stringify(track),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (res) {
+                   console.log(res)
+                }
+            })
+        })
+    </script> -->
+</body>
+
+</html>

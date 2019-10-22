@@ -29,42 +29,36 @@
 
 <body class="js">
     <script>
-        function track(){
-            var package_id = $('#pid').val()
-            var track = {
-                package_id: package_id
+        function package() {
+            var weight = $('#weight').val()
+            var origin = $('#origin').val()
+            var destination = $('#destination').val()
+            var package = {
+                weight: weight,
+                origin: origin,
+                destination: destination
             }
 
             $.ajax({
-                url:"/tracking",
-                type:'POST',
-                data: JSON.stringify(track),
+                url: "/services",
+                type: 'POST',
+                data: JSON.stringify(package),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (res) {
-                if(res.success){
-                    alert(res.message)
-                }
-                else{
-                    alert(res.message)
-                }
+                    if (res.success) {
+                        alert(res.message)
+                    } else {
+                        alert(res.message)
+                    }
                 }
             })
         }
     </script>
-    <div id="preloader"></div>
-    <section class="third header_area" id="home">
-        <div class="bgslider">
-            <div class="active-bg-slider">
-                <div class="singlebgslider">
-                    <img src="img/bgslider.jpg" alt="">
-                </div>
-                <div class="singlebgslider">
-                    <img src="img/headerbg.jpg" alt="">
-                </div>
-            </div>
-        </div>
 
+    <div id="preloader"></div>
+
+    <section class="about-us">
         <div class="logo_menu" id="sticker">
             <div class="container">
                 <div class="row">
@@ -75,12 +69,11 @@
                     </div>
                     <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
                         <nav class="navbar">
-
                             <ul class="nav navbar-nav navbar-right menu">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/about">about</a></li>
+                                <li><a href="/admin">Admin</a></li>
                                 <li class="current-menu-item"><a href="/tracking">Tracking</a></li>
-                                <li><a href="/services">services</a></li>
+                                <li><a href="/services">Services</a></li>
                                 <li><a href="/contact">Contact</a></li>
                             </ul>
                         </nav>
@@ -88,34 +81,108 @@
                 </div>
             </div>
         </div>
-        <div class="table zindex">
-            <div class="cell">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <div class="welcome_text wow slideInLeft">
-                                <h1>Get the fastest service </h1>
-                                <h1>for your product</h1>
-                                <div class="welcome_p">
-                                    <p>Country's Fastest and most reliable shippers and deliverers</p>
-                                    <p>are now live and open to you!</p>
-                                </div>
-                                <div class="welcome_form">
-                                    <% if(data =='') { %>    
-                                        <form>
-                                            <input class="form-control" type="text" id=pid placeholder="Enter your product ID">
-                                            <input class="submit" type="submit" onclick="track()" value="Track your product">
-                                        </form>
-                                    <% } %>
-                                    <% if(data) { %>
-                                        <p>
-                                            <p>HELLLOOOOO</p>
-                                            <%= data %>
-                                        </p>
-                                        <% } %>
-                                </div>
+    </section>
+
+    <section class="about_top">
+        <div class="container">
+            <div class="row page-title">
+                <div class="col-md-5 col-sm-6">
+                    <div class="pricing-desc section-padding-two">
+                        <div class="pricing-desc-title">
+                            <div class="title">
+                                <h2>Check Status of your packages here!</h2>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row page-title">
+                <div class="col-md-5 col-sm-6">
+                    <div class="pricing-desc section-padding-two">
+                        <div class="pricing-desc-title">
+                            <div class="title">
+                                <h2>Payment Pending!</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <% data.forEach(function(e1, i){ %>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="about_single_item">
+                        <div class="about_single_item_content">
+                            <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
+                                <%=e1.package_destination%></h4>
+                            <p>Package Weight : <%= e1.package_weight %></p>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+
+            <div class="row page-title">
+                <div class="col-md-5 col-sm-6">
+                    <div class="pricing-desc section-padding-two">
+                        <div class="pricing-desc-title">
+                            <div class="title">
+                                <h2>Out For Delivery:</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <% data.forEach(function(e1, i){ %>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="about_single_item">
+                        <div class="about_single_item_content">
+                            <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
+                                <%=e1.package_destination%></h4>
+                            <p>Package Weight : <%= e1.package_weight %></p>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <section class="footer-area" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-3 col-xs-12 col-lg-4">
+                    <div class="single-footer">
+                        <h2>About us</h2>
+                        <p>Add something here guys, dhruv bol kuch</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-12 col-lg-2">
+                    <div class="single-footer">
+                        <h2>More links</h2>
+                        <ul class="list">
+                            <li><a href="#">about us.</a></li>
+                            <li><a href="#">We Accepts.</a></li>
+                            <li><a href="#">news latters</a></li>
+                            <li><a href="#">Pricing & plans</a></li>
+                            <li><a href="#">Calculate</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                    <div class="single-footer">
+                        <h2>We Accept</h2>
+                        <a href="#"><img src="img/cards_credt_1.png" alt="#"></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                    <div class="single-footer clearfix">
+                        <h2>Sign to Offers</h2>
+                        <input type="text" class="form-control">
+                        <input type="submit" class="submt-button" value="submit">
                     </div>
                 </div>
             </div>
@@ -136,6 +203,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
