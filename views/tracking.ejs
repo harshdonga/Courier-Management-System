@@ -28,6 +28,30 @@
 </head>
 
 <body class="js">
+    <script>
+        function track(){
+            var package_id = $('#pid').val()
+            var track = {
+                package_id: package_id
+            }
+
+            $.ajax({
+                url:"/tracking",
+                type:'POST',
+                data: JSON.stringify(track),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (res) {
+                if(res.success){
+                    alert(res.message)
+                }
+                else{
+                    alert(res.message)
+                }
+                }
+            })
+        }
+    </script>
     <div id="preloader"></div>
     <section class="third header_area" id="home">
         <div class="bgslider">
@@ -77,10 +101,18 @@
                                     <p>are now live and open to you!</p>
                                 </div>
                                 <div class="welcome_form">
-                                    <form action="/tracking" method="POST">
-                                        <input class="form-control" type="text" id=pid placeholder="Enter your product ID">
-                                        <input class="submit" type="submit" value="Track your product">
-                                    </form>
+                                    <% if(data =='') { %>    
+                                        <form>
+                                            <input class="form-control" type="text" id=pid placeholder="Enter your product ID">
+                                            <input class="submit" type="submit" onclick="track()" value="Track your product">
+                                        </form>
+                                    <% } %>
+                                    <% if(data) { %>
+                                        <p>
+                                            <p>HELLLOOOOO</p>
+                                            <%= data %>
+                                        </p>
+                                        <% } %>
                                 </div>
                             </div>
                         </div>

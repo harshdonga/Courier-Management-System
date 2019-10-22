@@ -85,15 +85,17 @@ app.get('/services', function(req, res){
 
 });
 
-app.get('/services', urlencodedParser, function(req, res){
+app.post('/services', urlencodedParser, function(req, res){
     var package_origin = req.body.origin;
     var package_destination = req.body.destination;
     var package_weight = req.body.weight;
+    console.log(req.body)
     mysqlConnection.query("INSERT INTO package(cust_id, package_origin, package_destination, package_weight) values(?,?,?,?)", [id,package_origin, package_destination, package_weight],function(err, results){
-        if(!err)
+        if(!err){
+        console.log(results);
         res.json({
             data: results
-        })  
+        })}
         else
         console.log(err)
     });
@@ -106,11 +108,26 @@ app.get('/admin', function (req, res) {
     res.render('admin');
 });
 app.get('/tracking', function (req, res) {
-    res.render('tracking');
+    var json = ''
+    res.render('tracking', {data: json});
 });
 
-app.post('/tracking', function(req, res){
-    
-})
+app.post('/tracking', urlencodedParser,function(req, res){
+    mysqlConnection.query('SELECT * FROM package WHERE package_id=?',[req.body.package_id], function(err, result){
+        if(!err){
+            console.log(result)
+            var string = JSON.stringify(result);
+            var json = JSON.parse(string);
+            console.log(json);
+            res.render('tracking', {
+                data: json
+            });
+        }
+        else{
+            console.log(err)
+        }
+});
+}
+);
 
-app.listen(8000);
+app.listen(8000)
