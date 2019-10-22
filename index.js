@@ -1,6 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var bodyparser = require('body-parser');
+const id = 1000;
 
 
 var mysqlConnection = mysql.createConnection({
@@ -43,7 +44,8 @@ app.post('/', urlencodedParser ,function(req, res){
         var email = data.email
         var password = data.password
         mysqlConnection.query('SELECT * FROM customer WHERE cust_email=? and cust_password = ?',[email, password], function(err){
-            if(err) throw err
+            if(!err)
+            res.render('services')
         });
         // res.redirect('services') //checkthisout
     }
@@ -68,7 +70,47 @@ app.post('/', urlencodedParser ,function(req, res){
 })
 
 app.get('/services', function(req, res){
-    res.render('services')
+    mysqlConnection.query("SELECT * FROM package WHERE cust_id = ?",[id], function(err,results){
+        if(!err){
+            var string = JSON.stringify(results);
+            var json = JSON.parse(string);
+
+            res.render('services', {data:json})
+        }
+        else{
+            console.log(err);
+        }
+    });
+    // res.render('services');
+
+});
+
+app.get('/services', urlencodedParser, function(req, res){
+    var package_origin = req.body.origin;
+    var package_destination = req.body.destination;
+    var package_weight = req.body.weight;
+    mysqlConnection.query("INSERT INTO package(cust_id, package_origin, package_destination, package_weight) values(?,?,?,?)", [id,package_origin, package_destination, package_weight],function(err, results){
+        if(!err)
+        res.json({
+            data: results
+        })  
+        else
+        console.log(err)
+    });
+});
+
+app.get('/contact', function(req, res){
+    res.render('contact');
+});
+app.get('/admin', function (req, res) {
+    res.render('admin');
+});
+app.get('/tracking', function (req, res) {
+    res.render('tracking');
+});
+
+app.post('/tracking', function(req, res){
+    
 })
 
 app.listen(8000);
