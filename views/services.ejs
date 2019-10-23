@@ -82,17 +82,17 @@
                 <div class="row">
                     <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
                         <div class="logo">
-                            <a href="/"><img src="img/logo.png" alt="logo"></a>
+                            <a href="/"><img
+                                    src="https://d1yn1kh78jj1rr.cloudfront.net/image/preview/HxBuYgYlWj2s470fo/storyblocks-caucasian-delivery-courier-holding-box-on-the-background-of-truck-young-delivery-courier-carrying-cardboard-box-delivery-courier-with-box-in-hands-vector-flat-design-illustration-horizontal-layout_BdcqYG2n-_SB_PM.jpg"" alt="
+                                    logo"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
                         <nav class="navbar">
                             <ul class="nav navbar-nav navbar-right menu">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/admin">Admin</a></li>
                                 <li><a href="/tracking">Tracking</a></li>
                                 <li class="current-menu-item"><a href="/services">Services</a></li>
-                                <li><a href="/contact">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -173,8 +173,10 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="about_single_item">
                             <div class="about_single_item_content">
+                                <% if (e1.is_verified==0) { %>
                                 <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To : <%=e1.package_destination%></h4>
                                 <p>Package Weight : <%= e1.package_weight %></p>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -185,58 +187,7 @@
 
     </section>
 
-    <!-- <section class="footer-area" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-12 col-lg-4">
-                    <div class="single-footer">
-                        <h2>About us</h2>
-                        <p>Add something here guys, dhruv bol kuch</p>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-12 col-lg-2">
-                    <div class="single-footer">
-                        <h2>More links</h2>
-                        <ul class="list">
-                            <li><a href="#">about us.</a></li>
-                            <li><a href="#">We Accepts.</a></li>
-                            <li><a href="#">news latters</a></li>
-                            <li><a href="#">Pricing & plans</a></li>
-                            <li><a href="#">Calculate</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="single-footer">
-                        <h2>We Accept</h2>
-                        <a href="#"><img src="img/cards_credt_1.png" alt="#"></a>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="single-footer clearfix">
-                        <h2>Sign to Offers</h2>
-                        <input type="text" class="form-control">
-                        <input type="submit" class="submt-button" value="submit">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="copyright-area">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 col-md-6 text-left">
-            </div>
-            <div class="col-xs-12  col-sm-6 col-md-6 text-right">
-                <div class="footer-text">
-                    <a href="https://facebook.com" class="fa fa-facebook"></a>
-                    <a href="https://twitter.com" class="fa fa-twitter"></a>
-                    <a href="https://linkedin.com" class="fa fa-linkedin"></a>
-                    <a href="https://google.com" class="fa fa-google-plus"></a>
-                    <a href="https://dribble.com" class="fa fa-dribbble"></a>
-                </div>
-            </div>
-        </div>
-    </div> -->
+   
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>

@@ -1,0 +1,29 @@
+<html>
+        <head>
+            <style>
+                table {
+                    border-collapse: collapse;
+                }
+
+                table,
+                th,
+                td {
+                    border: 1px solid black;
+                }
+            </style>
+        </head>
+    
+    <body>
+        <div style="width: 85%; margin: 0 7.5%;">
+            <div style="text-align: center; padding-left: 50px;">
+                <h3>Bill Reciept</h3>
+                <h2>Bill Name : <%= data1.currentuser %></h2>
+                <h2>User Id : <%= data1.currentid %></h2>
+                <h2>Bill Id : <%= data1.billid %></h2>
+                <h2>Total : <%= data1.total %></h2>
+                <button>Print</button>
+            </div>
+
+        </div>
+    </body>
+</html>

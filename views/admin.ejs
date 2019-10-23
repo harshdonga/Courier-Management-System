@@ -27,8 +27,18 @@
     <![endif]-->
 </head>
 
-<body class="js">
+<body class="js" onload="loader()">
     <script>
+        function loader(){
+        Push.create("Hello Admin", {
+        body: "Please Verify transactions",
+        icon: "/icon.png",
+        timeout: 5000,
+        onClick: function() {
+        console.log(this);
+        }
+        });
+    }
     </script>
 
     <section class="about-us">
@@ -37,7 +47,9 @@
                 <div class="row">
                     <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
                         <div class="logo">
-                            <a href="/"><img src="img/logo.png" alt="logo"></a>
+                            <a href="/"><img
+                                    src="https://d1yn1kh78jj1rr.cloudfront.net/image/preview/HxBuYgYlWj2s470fo/storyblocks-caucasian-delivery-courier-holding-box-on-the-background-of-truck-young-delivery-courier-carrying-cardboard-box-delivery-courier-with-box-in-hands-vector-flat-design-illustration-horizontal-layout_BdcqYG2n-_SB_PM.jpg"" alt="
+                                    logo"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
@@ -45,9 +57,6 @@
                             <ul class="nav navbar-nav navbar-right menu">
                                 <li><a href="/">Home</a></li>
                                 <li class="current-menu-item"><a href="/admin">Admin</a></li>
-                                <li><a href="/tracking">Tracking</a></li>
-                                <li><a href="/services">Services</a></li>
-                                <li><a href="/contact">Contact</a></li>
                             </ul>
                         </nav>
                     </div>

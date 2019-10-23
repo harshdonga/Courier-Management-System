@@ -4,6 +4,11 @@ var bodyparser = require('body-parser');
 const store = require('data-store')({
     path: process.cwd() + '/tempx.json'
 });
+var request = require('request');
+var fs = require('fs');
+let ejs = require("ejs");
+let pdf = require("html-pdf");
+let path = require("path");
 
 
 var mysqlConnection = mysql.createConnection({
@@ -41,6 +46,10 @@ app.post('/post', urlencodedParser ,function(req, res){
     console.log(data)
     var status = 0;
 
+    if(data.what ==='login' && data.email==='admin@admin.com' && data.password==='admin'){
+        res.redirect('/admin');
+    }
+
 
     if(data.what === 'login'){
         var email = data.email
@@ -75,6 +84,7 @@ app.post('/post', urlencodedParser ,function(req, res){
                 console.log(err);
             }
         });
+    
         
     }
 })
@@ -179,7 +189,7 @@ app.post('/verify', urlencodedParser, function(req, res){
             else
             console.log(err);
         })
-    }res.send('payment');
+    }res.render('index');
 });
 
 
@@ -204,8 +214,69 @@ app.post('/verify', urlencodedParser, function(req, res){
 // }
 // );
 
-app.get('/harsh', function(req, res){
-    res.render('harsh')
-})
+app.post('/payment', urlencodedParser,function(req, res){
+    var currentid = store.get('currentid');
+    var currentuser = store.get('currentuser');
+    var r = [0,1,2,3,4,5,6,7,8,9];
+    var ra = r[Math.floor(Math.random() * r.length)];
+    var selected = req.body;
+    var keys = Object.keys(selected);
+    var values = Object.values(selected);
+    var total = 0;
+    for (var i = 0; i < keys.length; i++) {
+        total = total + parseInt(values[i]);
+        mysqlConnection.query("UPDATE package SET is_paid= ? WHERE package_id= ?", [1, keys[i]], function(err, rest){
+            if(err)
+            console.log(err);
+            mysqlConnection.query("SELECT * FROM offers WHERE offer_id = ?",[ra], function(err, result){
+                if(err)
+                console.log(err)
+                var string = JSON.stringify(result);
+                var json = JSON.parse(string);                
+            });
+        });
+    }
+            var data1 = {
+                currentid: currentid,
+                currentuser: currentuser,
+                billid: ra,
+                total: total
+            };
+    // ejs.render(path.join(__dirname, './views','payment.ejs'), {data1:data1}, (err, data)=>
+    // {
+    //     if(err)
+    //     res.send(err);
+    //     else{
+    //     let options = {
+    //             "height": "11.25in",
+    //             "width": "8.5in",
+    //             "header": {
+    //                 "height": "20mm"
+    //             },
+    //             "footer": {
+    //                 "height": "20mm",
+    //             },
+    //     };
+    //     pdf.create(data, options).toFile("report.pdf", function (err, data) {
+    //         if (err) {
+    //             res.send(err);
+    //         } else {
+    //             res.send("File created successfully");
+    //         }
+    //     });
+    //     }
+
+
+    // });
+    res.render('payment' , {data1:data1});
+});
 
 app.listen(8000)
+
+
+// res.render('payment', {
+//     data: json,
+//     total: total,
+//     currentuser: currentuser,
+//     currentid: currentid,
+// })

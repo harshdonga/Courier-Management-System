@@ -64,17 +64,17 @@
                 <div class="row">
                     <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
                         <div class="logo">
-                            <a href="/"><img src="img/logo.png" alt="logo"></a>
+                            <a href="/"><img
+                                    src="https://d1yn1kh78jj1rr.cloudfront.net/image/preview/HxBuYgYlWj2s470fo/storyblocks-caucasian-delivery-courier-holding-box-on-the-background-of-truck-young-delivery-courier-carrying-cardboard-box-delivery-courier-with-box-in-hands-vector-flat-design-illustration-horizontal-layout_BdcqYG2n-_SB_PM.jpg" alt="
+                                    logo"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
                         <nav class="navbar">
                             <ul class="nav navbar-nav navbar-right menu">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/admin">Admin</a></li>
                                 <li class="current-menu-item"><a href="/tracking">Tracking</a></li>
                                 <li><a href="/services">Services</a></li>
-                                <li><a href="/contact">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -138,6 +138,7 @@
                     </div>
                 </div>
             </div>
+            <form method="POST" action="payment">
             <div class="row">
                 <% data.forEach(function(e1, i){ %>
                     <% data1.forEach(function(e2, i2){ %>
@@ -145,6 +146,7 @@
                     <div class="about_single_item">
                         <div class="about_single_item_content">
                             <% if(e1.is_paid === 0 && e1.is_verified!=0 && e1.package_id == e2.package_id) { %>}
+                            <input type="checkbox" id=<%= e1.package_id%> value=<%= e2.package_value %> name=<%= e1.package_id %>>
                             <h4>Package Id : <%= e1.package_id%> <br>From : <%= e1.package_origin %> <br>To :
                                 <%=e1.package_destination%> <br> Cost : <%= e2.package_value %></h4>
                             <p>Package Weight : <%= e1.package_weight %></p>
@@ -155,6 +157,8 @@
                 <% }); %>
                 <% }); %>
             </div>
+            <input type="submit">
+        </form>
 
 
 
